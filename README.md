@@ -9,4 +9,4 @@ counts3 -f directorylist.txt -w 3 -s3 S3Name
 # Build
 
 ## MacOS
-$ env GOOS=darwin GOARCH=amd64 go build -o bin/64bit/darwin/gossh cmd/gossh/main.go
+$ env GOOS=darwin GOARCH=amd64 go build -o counts3 main.go
