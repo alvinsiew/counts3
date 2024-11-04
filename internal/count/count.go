@@ -1,4 +1,4 @@
-package countfiles
+package count
 
 import (
 	"context"
@@ -10,7 +10,7 @@ import (
 )
 
 // countFilesInS3Folder counts the number of objects in a specified S3 folder
-func countFilesInS3Folder(client *s3.Client, bucket string, prefix string) {
+func CountFilesInS3Folder(client *s3.Client, bucket string, prefix string) {
 	var count int
 
 	for {
