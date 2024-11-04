@@ -1,4 +1,4 @@
-package countFiles
+package countfiles
 
 import (
 	"context"

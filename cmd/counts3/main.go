@@ -9,6 +9,7 @@ import (
 	"os"
 	"sync"
 
+	"github.com/alvinsiew/counts3/internal/worker"
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/s3"

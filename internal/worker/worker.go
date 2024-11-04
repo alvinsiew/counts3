@@ -3,6 +3,7 @@ package worker
 import (
 	"sync"
 
+	"github.com/alvinsiew/alvinsiew/counts3/internal/countfiles"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 )
 
