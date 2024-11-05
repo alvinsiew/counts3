@@ -5,8 +5,6 @@ import (
 	"context"
 	option "counts3/internal/option"
 	worker "counts3/internal/worker"
-	"flag"
-	"fmt"
 	"log"
 	"os"
 	"sync"
@@ -26,7 +24,9 @@ func main() {
 
 	var s3Client = s3.NewFromConfig(cfg)
 
+	// Make channel for queuing tasks
 	jobs := make(chan string, 100)
+
 	var wg sync.WaitGroup
 
 	for i := 1; i <= workerPool; i++ {
