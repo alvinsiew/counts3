@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"context"
+	option "counts3/internal/option"
 	worker "counts3/internal/worker"
 	"flag"
 	"fmt"
@@ -15,24 +16,7 @@ import (
 )
 
 func main() {
-	var filePath string
-
-	fileParam := flag.String("f", "", "File path and name")
-	workerParam := flag.Int("w", 1, "Number of Workers")
-	bucketParam := flag.String("s3", "", "S3 bucket name")
-	flag.Parse()
-
-	if *fileParam == "" {
-		fmt.Println("File must be specific with -f")
-		os.Exit(1)
-	} else {
-		filePath = *fileParam
-	}
-
-	if *bucketParam == "" {
-		fmt.Println("S3 Bucket must be specific with -s3")
-		os.Exit(1)
-	}
+	bucketName, fileName, workerPool := option.Param()
 
 	// Load AWS configuration
 	cfg, err := config.LoadDefaultConfig(context.TODO(), config.WithRegion("ap-southeast-1"))
@@ -45,12 +29,13 @@ func main() {
 	jobs := make(chan string, 100)
 	var wg sync.WaitGroup
 
-	for i := 1; i <= *workerParam; i++ {
+	for i := 1; i <= workerPool; i++ {
 		wg.Add(1)
-		go worker.Worker(s3Client, *bucketParam, jobs, &wg)
+		go worker.Worker(s3Client, bucketName, jobs, &wg)
 	}
 
-	file, err := os.Open(filePath)
+	file, err := os.Open(fileName)
+
 	if err != nil {
 		log.Fatal(err)
 	}
