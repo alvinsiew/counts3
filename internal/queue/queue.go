@@ -6,6 +6,7 @@ import (
 	"os"
 )
 
+// Read file line by line and send to channel
 func QueueJob(fileName string, jobs chan string) {
 	file, err := os.Open(fileName)
 

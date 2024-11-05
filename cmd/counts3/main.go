@@ -31,8 +31,8 @@ func main() {
 	wg.Wait()   // Wait for all workers to finish.
 }
 
+// Load AWS configuration
 func s3Client() *s3.Client {
-	// Load AWS configuration
 	cfg, err := config.LoadDefaultConfig(context.TODO(), config.WithRegion("ap-southeast-1"))
 	if err != nil {
 		log.Fatalf("unable to load SDK config, %v", err)

@@ -6,6 +6,7 @@ import (
 	"os"
 )
 
+// Flag allow for the cli
 func Param() (string, string, int) {
 	fileParam := flag.String("f", "", "File path and name")
 	workerParam := flag.Int("w", 1, "Number of Workers")
