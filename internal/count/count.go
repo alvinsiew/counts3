@@ -11,7 +11,7 @@ import (
 
 // countFilesInS3Folder counts the number of objects in a specified S3 folder
 func CountFilesInS3Folder(client *s3.Client, bucket string, prefix string) {
-	var count int
+	count := 0
 
 	for {
 		input := &s3.ListObjectsV2Input{
