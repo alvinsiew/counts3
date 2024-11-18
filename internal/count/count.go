@@ -12,11 +12,13 @@ import (
 // countFilesInS3Folder counts the number of objects in a specified S3 folder
 func CountFilesInS3Folder(client *s3.Client, bucket string, prefix string) {
 	count := 0
+	var continuationToken *string
 
 	for {
 		input := &s3.ListObjectsV2Input{
-			Bucket: aws.String(bucket),
-			Prefix: aws.String(prefix),
+			Bucket:            aws.String(bucket),
+			Prefix:            aws.String(prefix),
+			ContinuationToken: continuationToken,
 		}
 
 		result, err := client.ListObjectsV2(context.TODO(), input)
@@ -34,6 +36,9 @@ func CountFilesInS3Folder(client *s3.Client, bucket string, prefix string) {
 		if !*result.IsTruncated {
 			break // No more objects to retrieve
 		}
+
+		// Set continuation token for the next page
+		continuationToken = result.NextContinuationToken
 	}
 
 	fmt.Printf("Total files in folder %s: %d\n", prefix, count)
